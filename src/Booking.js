@@ -14,4 +14,28 @@ export class Booking {
 
     return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`
   }
+
+  isValidTime(){
+    const parts = this.startTime.split(':')
+
+    if(parts.length !== 2) {
+      return false
+    }
+
+    const hours = Number(parts[0])
+    const minutes = Number(parts[1])
+
+    if (!Number.isInteger(hours)|| !Number.isInteger(minutes)){
+      return false
+    }
+
+    if (hours < 0 ||hours > 23) {
+      return false
+    }
+    
+    if (minutes < 0 || minutes > 59) {
+      return false
+    }
+    return true
+  }
 }
