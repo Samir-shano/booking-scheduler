@@ -38,4 +38,15 @@ export class Booking {
     }
     return true
   }
+
+  isValidDuration() {
+    if (!Number.isInteger(this.duration)){
+      return false
+    }
+
+    if (this.duration <= 0) {
+      return false
+    }
+    return true
+  }
 }
