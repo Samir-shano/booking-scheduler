@@ -15,6 +15,12 @@ export class Booking {
     return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`
   }
 
+  getStartTimeMinutes() {
+    const [hours, minutes] = this.startTime.split(':').map(Number)
+    return hours * 60 + minutes
+
+  }
+
   isValidTime(){
     const parts = this.startTime.split(':')
 
