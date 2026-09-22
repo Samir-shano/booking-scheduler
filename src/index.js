@@ -1,5 +1,15 @@
-import { Booking } from "./Booking.js"
+// import { Booking } from "./Booking.js"
 
-const booking = new Booking("2026-09-21", "10:00", 60)
+// const booking = new Booking("2026-09-21", "10:00", 60)
 
-  console.log(booking.isValidDuration())
+// console.log(booking.isValidDuration())
+
+import { BookingScheduler } from './BookingScheduler.js'
+
+const scheduler = new BookingScheduler()
+
+scheduler.addBooking('2026-09-22', '10:00', 60)
+
+console.log(scheduler.getBookings())
+
+console.log(scheduler.getBookings()[0].getEndTimeMinutes())

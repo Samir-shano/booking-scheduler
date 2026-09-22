@@ -21,6 +21,10 @@ export class Booking {
 
   }
 
+  getEndTimeMinutes() {
+    return this.getStartTimeMinutes() + this.duration
+  }
+
   isValidTime(){
     const parts = this.startTime.split(':')
 
