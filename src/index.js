@@ -12,4 +12,6 @@ scheduler.addBooking('2026-09-22', '10:00', 60)
 
 console.log(scheduler.getBookings())
 
-console.log(scheduler.getBookings()[0].getEndTimeMinutes())
+// console.log(scheduler.getBookings()[0].getEndTimeMinutes())
+
+console.log(scheduler.isAvailable('2026-09-22', '11:00', 60)) 
