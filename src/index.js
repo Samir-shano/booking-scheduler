@@ -9,10 +9,12 @@ import { BookingScheduler } from './BookingScheduler.js'
 const scheduler = new BookingScheduler()
 
 scheduler.addBooking('2026-09-22', '10:00', 60)
-scheduler.addBooking('2026-09-22', '11:00', 60)
+scheduler.addBooking('2026-09-22', '13:00', 60)
 
 console.log('Before:',scheduler.getBookings())
-console.log('Cancelled:', scheduler.cancelBooking(99))
+console.log(
+  'Rescheduled:',
+  scheduler.rescheduleBooking(99, '2026-09-22', '15:00', 60))
 
 console.log('After:', scheduler.getBookings())
 

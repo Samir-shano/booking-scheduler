@@ -71,6 +71,53 @@ export class BookingScheduler {
   return true
   }
 
+rescheduleBooking(id, newDate, newStartTime, newDuration) {
+  const booking = this.bookings.find(
+  booking => booking.id === id
+ )
+  if (!booking) {
+    return false
+  }
+
+  const updatedBooking = new Booking(
+    id,
+    newDate,
+    newStartTime,
+    newDuration
+  )
+
+  if (!updatedBooking.isValidTime()) {
+  throw new Error('Invalid booking time')
+}
+
+  if (!updatedBooking.isValidDuration()) {
+  throw new Error('Invalid booking duration')
+}
+
+for (const existingBooking of this.bookings) {
+  if (existingBooking.id === id) {
+    continue
+  }
+if (existingBooking.date !== newDate) {
+    continue
+  }
+  const newStart = updatedBooking.getStartTimeMinutes()
+  const newEnd = updatedBooking.getEndTimeMinutes()
+
+  const existingStart = existingBooking.getStartTimeMinutes()
+  const existingEnd = existingBooking.getEndTimeMinutes()
+
+  if (newStart < existingEnd && newEnd > existingStart) {
+  return false
+}
+}
+booking.date = newDate
+  booking.startTime = newStartTime
+  booking.duration = newDuration
+
+  return true
+}
+
   getBookings() {
     return [...this.bookings]
   }
