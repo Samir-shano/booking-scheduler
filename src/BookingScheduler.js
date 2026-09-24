@@ -57,6 +57,20 @@ export class BookingScheduler {
     return true
   }
 
+
+  cancelBooking(id) {
+    const bookingIndex = this.bookings.findIndex(
+      booking => booking.id === id
+    )
+
+    if (bookingIndex === -1) {
+    return false
+  }
+
+  this.bookings.splice(bookingIndex, 1)
+  return true
+  }
+
   getBookings() {
     return [...this.bookings]
   }

@@ -11,7 +11,10 @@ const scheduler = new BookingScheduler()
 scheduler.addBooking('2026-09-22', '10:00', 60)
 scheduler.addBooking('2026-09-22', '11:00', 60)
 
-console.log(scheduler.getBookings())
+console.log('Before:',scheduler.getBookings())
+console.log('Cancelled:', scheduler.cancelBooking(99))
+
+console.log('After:', scheduler.getBookings())
 
 // console.log(scheduler.getBookings()[0].getEndTimeMinutes())
 
