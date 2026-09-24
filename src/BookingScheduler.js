@@ -3,18 +3,16 @@ import { Booking } from './Booking.js'
 export class BookingScheduler {
   constructor() {
     this.bookings = []
+    this.nextBookingId = 1
   }
 
   addBooking(date, startTime, duration) {
-    const booking = new Booking(date, startTime, duration)
-
-    if (!booking.isValidTime()) {
-      throw new Error('Invalid booking time')
-    }
-
-    if (!booking.isValidDuration()) {
-      throw new Error('Invalid booking duration')
-    }
+    const booking = new Booking(
+      this.nextBookingId,
+      date,
+      startTime,
+      duration
+    )
 
     if (!booking.isValidTime()) {
       throw new Error('Invalid booking time')
@@ -29,16 +27,22 @@ export class BookingScheduler {
     }
 
     this.bookings.push(booking)
+    this.nextBookingId++
   }
 
   isAvailable(date, startTime, duration) {
+    const newBooking = new Booking(
+      this.nextBookingId,
+      date,
+      startTime,
+      duration
+    )
 
-    const newBooking = new Booking(date, startTime, duration)
-    
     for (const booking of this.bookings) {
       if (booking.date !== date) {
         continue
       }
+
       const newStart = newBooking.getStartTimeMinutes()
       const newEnd = newBooking.getEndTimeMinutes()
 
@@ -49,6 +53,7 @@ export class BookingScheduler {
         return false
       }
     }
+
     return true
   }
 

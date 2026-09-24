@@ -1,5 +1,6 @@
 export class Booking {
-  constructor( date, startTime, duration){
+  constructor(id, date, startTime, duration){
+    this.id = id
     this.date= date
     this.startTime=startTime
     this.duration= duration
