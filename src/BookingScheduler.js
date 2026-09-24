@@ -16,6 +16,18 @@ export class BookingScheduler {
       throw new Error('Invalid booking duration')
     }
 
+    if (!booking.isValidTime()) {
+      throw new Error('Invalid booking time')
+    }
+
+    if (!booking.isValidDuration()) {
+      throw new Error('Invalid booking duration')
+    }
+
+    if (!this.isAvailable(date, startTime, duration)) {
+      throw new Error('Booking time is not available')
+    }
+
     this.bookings.push(booking)
   }
 
