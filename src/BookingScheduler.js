@@ -13,6 +13,12 @@ export class BookingScheduler {
     this.openingHours.push(hours)
   }
 
+  getOpeningHours(day) {
+  return this.openingHours.find(
+    hours => hours.day === day
+  )
+}
+
   addBooking(date, startTime, duration) {
     const booking = new Booking(
       this.nextBookingId,
