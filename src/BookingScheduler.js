@@ -19,6 +19,24 @@ export class BookingScheduler {
   )
 }
 
+getDayFromDate(date) {
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ]
+
+  const dayNumber = new Date(date).getDay()
+
+  return days[dayNumber]
+}
+
+
+
   addBooking(date, startTime, duration) {
     const booking = new Booking(
       this.nextBookingId,
