@@ -1,9 +1,16 @@
 import { Booking } from './Booking.js'
+import { OpeningHours } from './OpeningHours.js'
 
 export class BookingScheduler {
   constructor() {
     this.bookings = []
     this.nextBookingId = 1
+    this.openingHours = []
+  }
+
+  setOpeningHours(day, openTime, closeTime) {
+    const hours = new OpeningHours(day, openTime, closeTime)
+    this.openingHours.push(hours)
   }
 
   addBooking(date, startTime, duration) {
