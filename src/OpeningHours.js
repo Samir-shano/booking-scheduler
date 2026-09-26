@@ -17,6 +17,16 @@ export class OpeningHours {
 
     const bookingStart = startHours * 60 + startMinutes
     const bookingEnd = bookingStart + duration
+
+    if (bookingStart < openingTime) {
+    return false
+  }
+
+    if (bookingEnd > closingTime) {
+    return false
+}
+
+    return true
   }
 
 }
