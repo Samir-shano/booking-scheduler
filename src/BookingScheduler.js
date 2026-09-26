@@ -35,6 +35,17 @@ getDayFromDate(date) {
   return days[dayNumber]
 }
 
+isWithinOpeningHours(date, startTime, duration) {
+  const day = this.getDayFromDate(date)
+
+  const openHours = this.getOpeningHours(day)
+
+  if (!openHours) {
+    return false
+  }
+
+  return openHours.isWithinOpeningHours(startTime, duration)
+}
 
 
   addBooking(date, startTime, duration) {
