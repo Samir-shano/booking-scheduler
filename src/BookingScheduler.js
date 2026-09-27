@@ -118,6 +118,21 @@ isWithinOpeningHours(date, startTime, duration) {
     const closeTime = closeHour * 60 + closeMinute
 
     const availableSlots = []
+
+    for (let currentTime = openingTime; currentTime + duration 
+    <= closeTime; currentTime += duration
+    ) {
+      const hours = Math.floor(currentTime / 60)
+      const minutes = currentTime % 60
+
+      const startTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+
+      if (this.isAvailable(date, startTime, duration)) {
+        availableSlots.push(startTime)
+      }
+    }
+
+    return availableSlots
   }
 
   cancelBooking(id) {
