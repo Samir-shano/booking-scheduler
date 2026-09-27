@@ -12,7 +12,11 @@ const scheduler = new BookingScheduler()
 
  scheduler.setOpeningHours('Monday', '08:00', '17:00')
 
-console.log(scheduler.isWithinOpeningHours('2026-09-28', '18:00', 60))
+ scheduler.addBooking('2026-09-28', '10:00', 60)
+
+ console.log(scheduler.getBookings())
+ 
+// console.log(scheduler.isWithinOpeningHours('2026-09-28', '18:00', 60))
 
 // scheduler.addBooking('2026-09-22', '10:00', 60)
 // scheduler.addBooking('2026-09-22', '13:00', 60)

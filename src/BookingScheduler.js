@@ -64,6 +64,10 @@ isWithinOpeningHours(date, startTime, duration) {
       throw new Error('Invalid booking duration')
     }
 
+    if (!this.isWithinOpeningHours(date, startTime, duration)) {
+      throw new Error('Booking is outside of opening hours')
+    }
+
     if (!this.isAvailable(date, startTime, duration)) {
       throw new Error('Booking time is not available')
     }
