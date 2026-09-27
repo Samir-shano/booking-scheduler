@@ -103,6 +103,22 @@ isWithinOpeningHours(date, startTime, duration) {
     return true
   }
 
+  getAvailableSlots(date, duration) {
+    const day = this.getDayFromDate(date)
+    const openHours = this.getOpeningHours(day)
+
+    if (!openHours) {
+      return []
+    }
+
+    const [openHour, openMinute] = openHours.openTime.split(':').map(Number)
+    const openingTime = openHour * 60 + openMinute
+
+    const [closeHour, closeMinute] = openHours.closeTime.split(':').map(Number)
+    const closeTime = closeHour * 60 + closeMinute
+
+    const availableSlots = []
+  }
 
   cancelBooking(id) {
     const bookingIndex = this.bookings.findIndex(
