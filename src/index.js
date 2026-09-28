@@ -12,7 +12,7 @@
 
  scheduler.setOpeningHours('Monday', '08:00', '17:00')
  scheduler.addBooking('2026-09-28', '10:00', 60)
- scheduler.rescheduleBooking( 1, '2026-02-31', '11:00', 60)
+ scheduler.rescheduleBooking( 1, '2026-09-28', '18:00', 60)
 
 // console.log(scheduler.getAvailableSlots('2026-09-28', 60))
 

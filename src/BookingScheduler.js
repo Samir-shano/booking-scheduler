@@ -179,6 +179,10 @@ export class BookingScheduler {
       throw new Error('Invalid booking duration')
     }
 
+    if (!this.isWithinOpeningHours(newDate, newStartTime, newDuration)) {
+      throw new Error('Booking is outside of opening hours')
+    }
+
     for (const existingBooking of this.bookings) {
       if (existingBooking.id === id) {
         continue
