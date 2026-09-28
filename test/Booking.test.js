@@ -12,3 +12,14 @@ test('calculates the correct end time', () => {
 
   assert.equal(booking.getEndTime(), '11:00')
 })
+
+test('validates a correct booking time', () => {
+  const booking = new Booking(
+    1,
+    '2026-09-28',
+    '10:00',
+    60
+  )
+
+  assert.equal(booking.isValidTime(), true)
+})
