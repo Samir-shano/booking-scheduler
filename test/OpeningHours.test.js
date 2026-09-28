@@ -27,3 +27,16 @@ test('rejects a booking before opening hours', () => {
     false
   )
 })
+
+test('rejects a booking that ends after closing hours', () => {
+  const openingHours = new OpeningHours(
+    'Monday',
+    '08:00',
+    '17:00'
+  )
+
+  assert.equal(
+    openingHours.isWithinOpeningHours('16:30', 60),
+    false
+  )
+})
