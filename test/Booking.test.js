@@ -45,3 +45,14 @@ test('validates a correct booking date', () => {
 
   assert.equal(booking.isValidDate(), true)
 })
+
+test('rejects an invalid booking date', () => {
+  const booking = new Booking(
+    1,
+    '2026-02-31',
+    '10:00',
+    60
+  )
+
+  assert.equal(booking.isValidDate(), false)
+})
