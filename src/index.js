@@ -1,19 +1,20 @@
 // import { Booking } from "./Booking.js"
 
-// const booking = new Booking("2026-09-21", "10:00", 60)
+// const booking = new Booking(1, "2026-02-31", "10:00", 60)
 
-// console.log(booking.isValidDuration())
+// console.log(booking.isValidDate())
 
  import { BookingScheduler } from './BookingScheduler.js'
-import { OpeningHours } from './OpeningHours.js'
+// import { OpeningHours } from './OpeningHours.js'
 
 
-const scheduler = new BookingScheduler()
+ const scheduler = new BookingScheduler()
 
  scheduler.setOpeningHours('Monday', '08:00', '17:00')
  scheduler.addBooking('2026-09-28', '10:00', 60)
+ scheduler.rescheduleBooking( 1, '2026-02-31', '11:00', 60)
 
- console.log(scheduler.getAvailableSlots('2026-09-28', 60))
+// console.log(scheduler.getAvailableSlots('2026-09-28', 60))
 
 // console.log(scheduler.isWithinOpeningHours('2026-09-28', '18:00', 60))
 

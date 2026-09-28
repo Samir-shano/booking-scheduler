@@ -14,38 +14,38 @@ export class BookingScheduler {
   }
 
   getOpeningHours(day) {
-  return this.openingHours.find(
-    hours => hours.day === day
-  )
-}
-
-getDayFromDate(date) {
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ]
-
-  const dayNumber = new Date(date).getDay()
-
-  return days[dayNumber]
-}
-
-isWithinOpeningHours(date, startTime, duration) {
-  const day = this.getDayFromDate(date)
-
-  const openHours = this.getOpeningHours(day)
-
-  if (!openHours) {
-    return false
+    return this.openingHours.find(
+      hours => hours.day === day
+    )
   }
 
-  return openHours.isWithinOpeningHours(startTime, duration)
-}
+  getDayFromDate(date) {
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ]
+
+    const dayNumber = new Date(date).getDay()
+
+    return days[dayNumber]
+  }
+
+  isWithinOpeningHours(date, startTime, duration) {
+    const day = this.getDayFromDate(date)
+
+    const openHours = this.getOpeningHours(day)
+
+    if (!openHours) {
+      return false
+    }
+
+    return openHours.isWithinOpeningHours(startTime, duration)
+  }
 
 
   addBooking(date, startTime, duration) {
@@ -55,6 +55,10 @@ isWithinOpeningHours(date, startTime, duration) {
       startTime,
       duration
     )
+
+    if (!booking.isValidDate()) {
+      throw new Error('Invalid booking date')
+    }
 
     if (!booking.isValidTime()) {
       throw new Error('Invalid booking time')
@@ -119,8 +123,8 @@ isWithinOpeningHours(date, startTime, duration) {
 
     const availableSlots = []
 
-    for (let currentTime = openingTime; currentTime + duration 
-    <= closeTime; currentTime += duration
+    for (let currentTime = openingTime; currentTime + duration
+      <= closeTime; currentTime += duration
     ) {
       const hours = Math.floor(currentTime / 60)
       const minutes = currentTime % 60
@@ -141,59 +145,63 @@ isWithinOpeningHours(date, startTime, duration) {
     )
 
     if (bookingIndex === -1) {
-    return false
+      return false
+    }
+
+    this.bookings.splice(bookingIndex, 1)
+    return true
   }
 
-  this.bookings.splice(bookingIndex, 1)
-  return true
+  rescheduleBooking(id, newDate, newStartTime, newDuration) {
+    const booking = this.bookings.find(
+      booking => booking.id === id
+    )
+    if (!booking) {
+      return false
+    }
+
+    const updatedBooking = new Booking(
+      id,
+      newDate,
+      newStartTime,
+      newDuration
+    )
+
+    if (!updatedBooking.isValidDate()) {
+      throw new Error('Invalid booking date')
+    }
+
+    if (!updatedBooking.isValidTime()) {
+      throw new Error('Invalid booking time')
+    }
+
+    if (!updatedBooking.isValidDuration()) {
+      throw new Error('Invalid booking duration')
+    }
+
+    for (const existingBooking of this.bookings) {
+      if (existingBooking.id === id) {
+        continue
+      }
+      if (existingBooking.date !== newDate) {
+        continue
+      }
+      const newStart = updatedBooking.getStartTimeMinutes()
+      const newEnd = updatedBooking.getEndTimeMinutes()
+
+      const existingStart = existingBooking.getStartTimeMinutes()
+      const existingEnd = existingBooking.getEndTimeMinutes()
+
+      if (newStart < existingEnd && newEnd > existingStart) {
+        return false
+      }
+    }
+    booking.date = newDate
+    booking.startTime = newStartTime
+    booking.duration = newDuration
+
+    return true
   }
-
-rescheduleBooking(id, newDate, newStartTime, newDuration) {
-  const booking = this.bookings.find(
-  booking => booking.id === id
- )
-  if (!booking) {
-    return false
-  }
-
-  const updatedBooking = new Booking(
-    id,
-    newDate,
-    newStartTime,
-    newDuration
-  )
-
-  if (!updatedBooking.isValidTime()) {
-  throw new Error('Invalid booking time')
-}
-
-  if (!updatedBooking.isValidDuration()) {
-  throw new Error('Invalid booking duration')
-}
-
-for (const existingBooking of this.bookings) {
-  if (existingBooking.id === id) {
-    continue
-  }
-if (existingBooking.date !== newDate) {
-    continue
-  }
-  const newStart = updatedBooking.getStartTimeMinutes()
-  const newEnd = updatedBooking.getEndTimeMinutes()
-
-  const existingStart = existingBooking.getStartTimeMinutes()
-  const existingEnd = existingBooking.getEndTimeMinutes()
-
-  if (newStart < existingEnd && newEnd > existingStart) {
-  return false
-}
-}
-booking.date = newDate
-  booking.startTime = newStartTime
-  booking.duration = newDuration
-
-  return true
-}
 
   getBookings() {
     return [...this.bookings]
