@@ -60,4 +60,30 @@ export class Booking {
     }
     return true
   }
+
+  isValidDate() {
+    const parts = this.date.split('-')
+
+    if (parts.length !== 3) {
+      return false
+    }
+
+    if (parts.length !== 4 ||
+      parts[0].length !== 4 ||
+      parts[1].length !== 2 ||
+      parts[2].length !== 2
+    ) {
+      return false
+    }
+
+    const year = Number(parts[0])
+    const month = Number(parts[1])
+    const day = Number(parts[2])
+
+    if(!Number.isInteger(year) 
+      || !Number.isInteger(month) 
+      || !Number.isInteger(day)) {
+      return false
+    }
+  }
 }
