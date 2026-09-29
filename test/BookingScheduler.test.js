@@ -62,3 +62,27 @@ test('returns false when cancelling a booking that does not exist', () => {
 
   assert.equal(result, false)
 })
+
+test('reschedules an existing booking', () => {
+  const scheduler = new BookingScheduler()
+
+  scheduler.setOpeningHours('Monday', '08:00', '17:00')
+
+  scheduler.addBooking(
+    '2026-09-28',
+    '10:00',
+    60
+  )
+
+  const result = scheduler.rescheduleBooking(
+    1,
+    '2026-09-28',
+    '11:00',
+    60
+  )
+
+  const bookings = scheduler.getBookings()
+
+  assert.equal(result, true)
+  assert.equal(bookings[0].startTime, '11:00')
+})
