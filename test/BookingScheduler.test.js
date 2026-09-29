@@ -37,3 +37,20 @@ test('rejects an overlapping booking', () => {
     )
   })
 })
+
+test('cancels an existing booking', () => {
+  const scheduler = new BookingScheduler()
+
+  scheduler.setOpeningHours('Monday', '08:00', '17:00')
+
+  scheduler.addBooking(
+    '2026-09-28',
+    '10:00',
+    60
+  )
+
+  const result = scheduler.cancelBooking(1)
+
+  assert.equal(result, true)
+  assert.equal(scheduler.getBookings().length, 0)
+})
