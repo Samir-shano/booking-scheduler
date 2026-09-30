@@ -86,3 +86,24 @@ test('reschedules an existing booking', () => {
   assert.equal(result, true)
   assert.equal(bookings[0].startTime, '11:00')
 })
+
+test('returns available booking slots', () => {
+  const scheduler = new BookingScheduler()
+
+  scheduler.setOpeningHours('Monday', '08:00', '17:00')
+
+  scheduler.addBooking(
+    '2026-09-28',
+    '10:00',
+    60
+  )
+
+  const slots = scheduler.getAvailableSlots(
+    '2026-09-28',
+    60
+  )
+
+  assert.equal(slots.includes('09:00'), true)
+  assert.equal(slots.includes('10:00'), false)
+  assert.equal(slots.includes('11:00'), true)
+})
