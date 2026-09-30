@@ -107,3 +107,14 @@ test('returns available booking slots', () => {
   assert.equal(slots.includes('10:00'), false)
   assert.equal(slots.includes('11:00'), true)
 })
+
+test('rejects zero duration when getting available slots', () => {
+  const scheduler = new BookingScheduler()
+
+  scheduler.setOpeningHours('Monday', '09:00', '17:00')
+
+  assert.throws(
+    () => scheduler.getAvailableSlots('2026-09-28', 0),
+    /Invalid booking duration/
+  )
+})
