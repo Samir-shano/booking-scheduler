@@ -118,3 +118,20 @@ test('rejects zero duration when getting available slots', () => {
     /Invalid booking duration/
   )
 })
+
+
+/**
+ * Tests that setting opening hours again updates the existing day.
+ */
+test('should update existing opening hours for the same day', () => {
+  const scheduler = new BookingScheduler()
+
+  scheduler.setOpeningHours('Monday', '09:00', '17:00')
+  scheduler.setOpeningHours('Monday', '10:00', '16:00')
+
+  const hours = scheduler.getOpeningHours('Monday')
+
+  assert.equal(hours.openTime, '10:00')
+  assert.equal(hours.closeTime, '16:00')
+  assert.equal(scheduler.openingHours.length, 1)
+})
