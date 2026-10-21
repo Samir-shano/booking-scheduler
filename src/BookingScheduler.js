@@ -15,15 +15,24 @@ export class BookingScheduler {
   }
 
   /**
-   * Sets the opening hours for a specific day.
-   *
-   * @param {string} day - The day of the week.
-   * @param {string} openTime - The opening time in HH:MM format.
-   * @param {string} closeTime - The closing time in HH:MM format.
-   */
+ * Sets or updates the opening hours for a specific day.
+ *
+ * @param {string} day - The day of the week.
+ * @param {string} openTime - The opening time in HH:MM format.
+ * @param {string} closeTime - The closing time in HH:MM format.
+ */
   setOpeningHours(day, openTime, closeTime) {
     const hours = new OpeningHours(day, openTime, closeTime)
-    this.openingHours.push(hours)
+
+    const existingIndex = this.openingHours.findIndex(
+      existing => existing.day === day
+    )
+
+    if (existingIndex !== -1) {
+      this.openingHours[existingIndex] = hours
+    } else {
+      this.openingHours.push(hours)
+    }
   }
 
   /**
